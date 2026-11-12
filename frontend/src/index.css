@@ -3,11 +3,26 @@
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
 body {
+  min-width: 320px;
+  margin: 0;
   font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #8d9872;
+  outline-offset: 2px;
 }
