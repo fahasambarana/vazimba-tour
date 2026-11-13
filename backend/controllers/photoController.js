@@ -1,5 +1,7 @@
 const PhotoHebergement = require("../models/PhotoHebergement");
 const Hebergement = require("../models/Hebergement");
+const fs = require("fs");
+const path = require("path");
 
 // Ajouter une photo
 exports.createPhoto = async (req, res) => {
@@ -46,11 +48,12 @@ exports.getPhotos = async (req, res) => {
 
     res.json({ data: photos });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-// Supprimer une photo
+// Supprimer une photo (base de données + fichier sur le disque)
 exports.deletePhoto = async (req, res) => {
   try {
     const photo = await PhotoHebergement.findByIdAndDelete(req.params.id);
@@ -61,9 +64,16 @@ exports.deletePhoto = async (req, res) => {
       });
     }
 
-    // Le fichier physique devra également être supprimé.
-    res.json({ message: "Photo supprimée de la base de données" });
+    // path.basename évite qu'on supprime un fichier hors du dossier uploads
+    const filePath = path.join("uploads", path.basename(photo.url_image));
+
+    fs.unlink(filePath, (err) => {
+      if (err) console.error("Fichier non supprimé :", err.message);
+    });
+
+    res.json({ message: "Photo supprimée" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };

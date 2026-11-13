@@ -1,5 +1,8 @@
 const EtapeCircuit = require("../models/EtapeCircuit");
 const Circuit = require("../models/Circuit");
+const pick = require("../utils/pick");
+
+const ETAPE_FIELDS = ["numero_jour", "titre_etape", "lieu", "activites"];
 
 // Ajouter une étape
 exports.createEtape = async (req, res) => {
@@ -14,7 +17,10 @@ exports.createEtape = async (req, res) => {
       });
     }
 
-    const etape = await EtapeCircuit.create(req.body);
+    const etape = await EtapeCircuit.create({
+      id_circuit,
+      ...pick(req.body, ETAPE_FIELDS),
+    });
 
     res.status(201).json({
       message: "Étape ajoutée",
@@ -34,7 +40,8 @@ exports.getEtapes = async (req, res) => {
 
     res.json({ data: etapes });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
@@ -43,7 +50,7 @@ exports.updateEtape = async (req, res) => {
   try {
     const etape = await EtapeCircuit.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      pick(req.body, ETAPE_FIELDS),
       { new: true, runValidators: true },
     );
 
@@ -75,6 +82,7 @@ exports.deleteEtape = async (req, res) => {
 
     res.json({ message: "Étape supprimée" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };

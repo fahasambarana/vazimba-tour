@@ -1,5 +1,21 @@
 const DemandeDevis = require("../models/DemandeDevis");
 const Circuit = require("../models/Circuit");
+const pick = require("../utils/pick");
+
+// Champs que le visiteur a le droit d'envoyer (surtout PAS statut_traitement)
+const DEVIS_FIELDS = [
+  "nom_client",
+  "email_client",
+  "telephone_client",
+  "id_circuit",
+  "option_chez_namana",
+  "nb_personnes",
+  "date_debut",
+  "date_fin",
+  "remarques_besoins",
+];
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Envoyer une demande
 exports.createDevis = async (req, res) => {
@@ -24,6 +40,12 @@ exports.createDevis = async (req, res) => {
     ) {
       return res.status(400).json({
         message: "Veuillez remplir tous les champs obligatoires",
+      });
+    }
+
+    if (!EMAIL_REGEX.test(String(email_client))) {
+      return res.status(400).json({
+        message: "Adresse e-mail invalide",
       });
     }
 
@@ -56,7 +78,11 @@ exports.createDevis = async (req, res) => {
       }
     }
 
-    const devis = await DemandeDevis.create(req.body);
+    const devis = await DemandeDevis.create({
+      ...pick(req.body, DEVIS_FIELDS),
+      id_circuit: id_circuit || null,
+      statut_traitement: "En attente",
+    });
 
     res.status(201).json({
       message: "Votre demande de devis a été envoyée",
@@ -79,7 +105,8 @@ exports.getDevis = async (req, res) => {
       data: devis,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 

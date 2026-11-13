@@ -8,8 +8,9 @@ const {
 } = require("../controllers/devisController");
 
 const { protect } = require("../middlewares/authMiddleware");
+const { devisLimiter } = require("../middlewares/rateLimiters");
 
-router.post("/", createDevis);
+router.post("/", devisLimiter, createDevis);
 
 router.get("/", protect, getDevis);
 

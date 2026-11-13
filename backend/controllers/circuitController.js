@@ -1,10 +1,22 @@
 const Circuit = require("../models/Circuit");
 const EtapeCircuit = require("../models/EtapeCircuit");
+const pick = require("../utils/pick");
+
+const CIRCUIT_FIELDS = [
+  "titre",
+  "theme",
+  "axe_region",
+  "duree_jours",
+  "prix_a_partir",
+  "description",
+  "is_featured",
+  "image_principale",
+];
 
 // Ajouter un circuit
 exports.createCircuit = async (req, res) => {
   try {
-    const circuit = await Circuit.create(req.body);
+    const circuit = await Circuit.create(pick(req.body, CIRCUIT_FIELDS));
 
     res.status(201).json({
       message: "Circuit créé avec succès",
@@ -38,7 +50,8 @@ exports.getCircuits = async (req, res) => {
       data: circuits,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
@@ -64,17 +77,22 @@ exports.getCircuitById = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
 // Modifier un circuit
 exports.updateCircuit = async (req, res) => {
   try {
-    const circuit = await Circuit.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const circuit = await Circuit.findByIdAndUpdate(
+      req.params.id,
+      pick(req.body, CIRCUIT_FIELDS),
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
 
     if (!circuit) {
       return res.status(404).json({
@@ -112,6 +130,7 @@ exports.deleteCircuit = async (req, res) => {
       message: "Circuit et ses étapes supprimés",
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
