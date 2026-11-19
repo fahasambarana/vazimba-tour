@@ -428,7 +428,6 @@ button { cursor: pointer; }
 .editorial-hero h1 { margin: 20px 0 17px; color: var(--forest); font: 500 clamp(52px, 6vw, 76px)/1 var(--serif); letter-spacing: -2px; }
 .editorial-hero h1 em { color: #9c8b65; }
 .editorial-hero > p { max-width: 470px; margin-bottom: 25px; color: #73766c; font-size: 12px; line-height: 1.9; }
-.about-hero { background-image: linear-gradient(90deg, rgba(243,239,230,.97) 0%, rgba(243,239,230,.91) 46%, rgba(243,239,230,.2) 100%), url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1500&q=85'); }
 .editorial-content { padding: 80px 11%; }
 .editorial-content h2 { margin: 17px 0 25px; color: var(--forest); font: 500 clamp(33px, 4vw, 46px)/1.15 var(--serif); }
 .editorial-content h2 em { color: #9c8b65; }
@@ -439,7 +438,6 @@ button { cursor: pointer; }
 .editorial-values svg { color: #a18d60; }
 .editorial-values h3 { margin: 13px 0 8px; color: var(--forest); font: 500 20px var(--serif); }
 .editorial-values p { color: #7b8077; font-size: 10px; line-height: 1.8; }
-.lodging-hero { background-image: linear-gradient(90deg, rgba(243,239,230,.96), rgba(243,239,230,.77) 50%, rgba(243,239,230,.12)), url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1500&q=85'); }
 .lodging-details { padding: 55px 8%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; background: #f5f2e9; }
 .lodging-detail { padding: 20px; }
 .lodging-detail > svg { color: #9d8b63; }
@@ -475,4 +473,132 @@ button { cursor: pointer; }
   .lodging-gallery { grid-template-columns: 1fr; }
   .lodging-gallery img { height: 240px; }
   .site-footer .contact-links { width: 100%; order: 4; }
+}
+.lodging-gallery figure { overflow: hidden; }
+
+.landscape-gallery-section { padding: 88px 7.3% 92px; background: #f5f2e9; }
+.landscape-gallery-heading { margin-bottom: 32px; }
+.landscape-gallery-heading h2 { margin: 13px 0 0; color: var(--forest); font: 500 clamp(36px, 4vw, 48px)/1.1 var(--serif); }
+.landscape-gallery-heading h2 em { color: #9c8b65; }
+.landscape-gallery-heading > p { max-width: 360px; font-size: 16px; line-height: 1.8; }
+.landscape-gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; }
+.landscape-card { position: relative; grid-column: span 5; height: 300px; margin: 0; overflow: hidden; border-radius: 13px; background: #d9dece; box-shadow: 0 8px 24px rgba(35, 53, 41, .1); }
+.landscape-card-wide { grid-column: span 7; height: 340px; }
+.landscape-card::after { position: absolute; content: ""; inset: 35% 0 0; background: linear-gradient(180deg, transparent, rgba(18, 34, 26, .82)); pointer-events: none; }
+.landscape-card img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .7s ease; }
+.landscape-card:hover img { transform: scale(1.04); }
+.landscape-card figcaption { position: absolute; z-index: 1; right: 20px; bottom: 18px; left: 20px; display: flex; justify-content: space-between; align-items: end; gap: 12px; color: #fff; }
+.landscape-caption-copy { display: flex; flex-direction: column; gap: 5px; }
+.landscape-caption-copy strong { font: 500 21px/1.2 var(--serif); }
+.landscape-caption-copy > span { color: rgba(255,255,255,.82); font-size: 13px; }
+.landscape-credit { flex: 0 0 auto; color: rgba(255,255,255,.78); font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
+.landscape-credit:hover { color: #fff; }
+.landscape-card { transition: transform .35s ease, box-shadow .35s ease; }
+.landscape-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(35, 53, 41, .16); }
+
+/* Verified Madagascar locations from Unsplash; keep key page photos local to the island. */
+.hero-art { background-image: linear-gradient(180deg, rgba(47, 76, 64, .02), rgba(31, 51, 41, .15)), url('https://images.unsplash.com/photo-1699622595982-42fb5bb9ad22?auto=format&fit=crop&w=1400&q=85'); }
+.hero-art { background-color: #d9dece; }
+.hero-art > .hero-slideshow-image { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-art::after { position: absolute; z-index: 1; content: ""; inset: 0; background: linear-gradient(180deg, rgba(20,37,29,.02), rgba(20,37,29,.2)); pointer-events: none; }
+.hero-art::before { z-index: 2; }
+.hero-art > :not(.hero-slideshow-image) { z-index: 3; }
+.editorial-hero { position: relative; isolation: isolate; overflow: hidden; }
+.hero-image-carousel { position: absolute; z-index: 0; inset: 0; overflow: hidden; }
+.hero-image-carousel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.035); transition: opacity 1.6s ease, transform 5s linear; }
+.hero-image-carousel img.is-active { opacity: 1; transform: scale(1); }
+.hero-image-carousel::after { position: absolute; content: ""; inset: 0; background: linear-gradient(90deg, rgba(243,239,230,.94) 0%, rgba(243,239,230,.84) 43%, rgba(243,239,230,.3) 100%); }
+.editorial-hero > :not(.hero-image-carousel) { position: relative; z-index: 2; }
+.editorial-hero.about-hero, .editorial-hero.lodging-hero { background-image: none; background-color: #f3efe6; }
+.featured-experience { background-image: linear-gradient(90deg, rgba(24,46,36,.88), rgba(24,46,36,.45)), url('https://images.unsplash.com/photo-1719850547060-31f160bddecc?auto=format&fit=crop&w=1600&q=85'); }
+.lodging-preview-art { background-image: linear-gradient(rgba(25,47,38,.12), rgba(25,47,38,.18)), url('https://images.unsplash.com/photo-1749584552225-ef6112c57c29?auto=format&fit=crop&w=1300&q=85'); }
+
+@media (max-width: 700px) {
+  .landscape-gallery-section { padding: 58px 6% 64px; }
+  .landscape-gallery { grid-template-columns: 1fr; gap: 14px; }
+  .landscape-card, .landscape-card-wide { grid-column: auto; height: 270px; }
+  .landscape-card figcaption { right: 15px; bottom: 14px; left: 15px; flex-wrap: wrap; }
+  .landscape-caption-copy strong { font-size: 19px; }
+  .landscape-credit { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image-carousel img { transform: none; transition: none; }
+}
+
+/* Readable type scale and a more finished, consistent surface treatment. */
+:root {
+  --forest: #1f3b2f;
+  --moss: #78885e;
+  --muted: #626d63;
+  --border: #e3e4dc;
+  --surface-shadow: 0 16px 40px rgba(35, 53, 41, 0.07);
+}
+
+body { font-size: 16px; }
+.main-nav, .nav-cta, .button, .text-link { font-size: 14px; }
+.eyebrow, .intro-label, .sidebar-label, .admin-breadcrumb,
+.card-theme, .featured-label, .aside-label, .itinerary-title { font-size: 12px; }
+.hero-copy > p, .section-heading > p, .detail-description,
+.detail-aside p, .form-intro > p, .editorial-hero > p,
+.editorial-columns p, .featured-copy > p, .lodging-preview-copy p,
+.commitment-card p, .lodging-detail p { font-size: 16px; }
+.hero-note, .hero-bottom, .hero-photo-caption, .scroll-cue,
+.card-location, .card-meta, .section-heading > p, .api-status,
+.site-footer > span, .footer-admin, .contact-links a,
+.detail-stats, .detail-aside .aside-note, .field > span,
+.field input, .field select, .field textarea, .checkbox-field,
+.form-promise span, .form-section-title p, .form-legal,
+.back-link, .login-card > p, .admin-nav-link, .admin-user strong,
+.admin-user small, .logout-button, .view-site, .admin-page-heading p,
+.panel-heading p, .count-pill, .managed-copy strong,
+.managed-copy small, .small-action, .danger-icon, .step-row-content strong,
+.step-row-content small, .step-row-content p, .step-form h4,
+.request-head > div:nth-child(2) > span, .status-select,
+.request-details > span, .request-date, .helper-text, .photo-category,
+.admin-empty, .notice, .muted-copy, .select-prompt p {
+  font-size: 14px;
+}
+.card-content > p, .request-notes { font-size: 15px; }
+.card-meta strong { font-size: 14px; }
+.intro-stamp { font-size: 11px; }
+.image-placeholder span { font-size: 12px; }
+.error-message, .success-message { font-size: 14px; }
+.form-legal { line-height: 1.7; }
+
+.nav-cta, .button, .small-action, .admin-nav-link,
+.field input, .field select, .field textarea, .status-select {
+  border-radius: 7px;
+}
+.button { min-height: 48px; padding: 13px 20px; }
+.nav-cta { min-height: 46px; }
+.card-image, .photo-admin-card, .commitment-card, .detail-aside,
+.form-card, .login-card, .admin-panel, .photo-gallery figure {
+  border-radius: 12px;
+}
+.circuit-card { overflow: hidden; border-radius: 14px; box-shadow: 0 5px 18px rgba(35, 53, 41, .04); }
+.circuit-card:hover { box-shadow: var(--surface-shadow); }
+.form-card, .login-card, .detail-aside { box-shadow: var(--surface-shadow); }
+.field input, .field select, .field textarea { min-height: 48px; background: #fdfdfb; }
+.field textarea { min-height: 120px; }
+.card-content > p { height: auto; min-height: 3.5em; line-height: 1.65; }
+.request-card, .admin-panel, .photo-upload, .photo-lookup { overflow: hidden; }
+
+@media (max-width: 700px) {
+  .main-nav, .main-nav a, .admin-nav-link { font-size: 15px; }
+  .hero-copy > p, .section-heading > p, .detail-description,
+  .detail-aside p, .form-intro > p, .editorial-hero > p,
+  .editorial-columns p, .featured-copy > p, .lodging-preview-copy p,
+  .commitment-card p, .lodging-detail p { font-size: 16px; }
+  .hero-note, .hero-bottom, .hero-photo-caption, .scroll-cue,
+  .card-location, .card-meta, .api-status, .site-footer > span,
+  .footer-admin, .contact-links a, .field > span, .field input,
+  .field select, .field textarea, .checkbox-field, .form-promise span,
+  .form-section-title p, .form-legal, .back-link, .admin-page-heading p,
+  .managed-copy strong, .managed-copy small, .small-action,
+  .request-details > span, .request-date, .helper-text, .status-select {
+    font-size: 14px;
+  }
+  .hero-copy h1 { font-size: clamp(48px, 13vw, 62px); }
+  .text-link { font-size: 14px; }
 }
